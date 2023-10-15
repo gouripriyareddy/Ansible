@@ -1,0 +1,15 @@
+---
+- name: Creating a dir
+  hosts: all
+  connection: ssh
+  user: ansible
+  become: yes
+
+
+  tasks:
+    - name: creating a afodler
+      file:
+        path: /home/ansible/dir-1
+        state: directory
+
+

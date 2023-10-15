@@ -1,0 +1,14 @@
+---
+- name: Creating a dir
+  hosts: all
+  connection: ssh
+  user: ansible
+  become: true
+
+
+  tasks:
+    - name: delete file
+      file:
+        path: /home/ansible/arun-file
+        state: absent
+

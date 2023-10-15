@@ -1,0 +1,44 @@
+--- # install java and tomcat
+- hosts: all
+  become: yes
+  user: ansible
+  connection: ssh
+  tasks: 
+    - name: installing java on redhat
+      yum:
+        name: java
+        state: installed
+      when: ansible_os_family = "RedHat"
+
+    - name: install java on debian
+      apt:
+        name: default-jdk
+        state: present
+      when: ansible_os_family = "debian"
+
+    - name: download the tomcat package 
+      ansible.builtin.get_url: 
+      url: https://downloads.apache.org/tomcat/tomcat-8/v8.5.93/bin/apache-tomcat-8.5.94.tar.gz
+      dest: /opt
+
+
+    - name: extract the tomcat package
+      ansible.builtin.unarchive:
+      src: /opt//apache-tomcat-8.5.94.tar.gz
+      dest: /opt
+      remote_src: yes   #it will verify that the tomcat s/w is there or not
+
+
+    - name: providing the executbale permissions
+      file:
+        path: /opt/apache-tomcat-8.5.94/bin/startup.sh
+        mode: 0777 
+
+    - name: start the tomcat service
+      shell: nohub ./startup.sh  # nohub means this service will always in  running 
+      args:
+        chdir: /opt/apache-tomcat-8.5.94/bin
+
+
+
+

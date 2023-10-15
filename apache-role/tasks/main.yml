@@ -1,0 +1,22 @@
+---
+# tasks file for apache-role
+- name: install httpd
+  yum: 
+    name: httpd
+    state: installed
+    when: ansible_os_family = "RedHat"
+    notify: start httpd service
+
+- name: install apache2
+  apt:
+    name: apache2
+    state: present # for debain , we will not use install
+    when: ansible_os_family = "Debian"
+    notify: start apache2 service
+
+- name: copy index.html
+  copy:
+    src: /home/ansible/index.html
+    dest: /var/www/html
+    mode: 0666 
+

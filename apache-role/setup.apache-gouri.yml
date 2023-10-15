@@ -1,0 +1,9 @@
+---
+- name: install apache
+  hosts: all
+  become: yes
+  connection: ssh
+
+  roles:
+      - apache-role
+

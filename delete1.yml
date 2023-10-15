@@ -1,0 +1,11 @@
+---
+- hosts: all
+  connection: ssh
+  user: ansible
+  become: true
+
+  tasks:
+    - name: delete the s/w
+      yum:
+        name: docker
+        state: absent

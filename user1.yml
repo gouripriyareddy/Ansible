@@ -1,0 +1,12 @@
+--- # mcreating user
+- name: my test playbook
+  hosts: webservers
+  user: ansible
+  become: yes
+  connection: ssh
+
+  tasks:
+    - name: creating a user
+      user:
+        name: gouripriya
+
